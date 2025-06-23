@@ -1,0 +1,78 @@
+* keeptrack
+
+Keep track of changes with a clean versioned history
+
+** Overview
+
+=keeptrack= is a Babashka script that monitors URLs for changes and
+maintains a versioned history of content. When content changes, it
+creates timestamped versions and can optionally trigger custom
+handlers.
+
+** Installation
+
+#+begin_src bash
+bbin install bbin install io.github.200ok-ch/keeptrack
+#+end_src
+
+** Usage
+
+#+begin_src bash
+keeptrack [options] <URL>
+#+end_src
+
+*** Options
+
+  =-d, --debug= - Print debug messages
+  =-h, --handler=COMMAND= - Command to execute when new version is created
+  =-p, --prefix=PREFIX= - Prefix for filenames (default: "prefix")
+  =-s, --storage=PATH= - Storage directory (default: =~/.keeptrack=)
+  =-t, --tempdir=PATH= - Temporary files directory (default: =/tmp/keeptrack=)
+
+*** Handler Substitutions
+
+When using the =--handler= option, you can use these placeholders:
+
+  =%o= - Path to the old file
+  =%n= - Path to the new file
+
+** Examples
+
+*** Basic Usage
+
+#+begin_src bash
+keeptrack https://api.example.com/data.json
+#+end_src
+
+*** With Custom Storage and Prefix
+
+#+begin_src bash
+keeptrack -s ~/my-tracking -p api-data https://api.example.com/data.json
+#+end_src
+
+*** With Handler for Notifications
+
+#+begin_src bash
+keeptrack --handler="echo 'New version: %n'" https://api.example.com/data.json
++end_src
+
+** How It Works
+
+1. Downloads content from the specified URL
+1. Compares with the latest version (if exists)
+1. Creates timestamped file if content changed
+1. Updates symlink to point to latest version
+1. Executes custom handler if specified
+
+** File Naming
+
+Files are stored with the format: ={prefix}-{timestamp}-v{version}.json=
+
+Example: =api-data-20250623T143052Z-v5.json=
+
+** Dependencies
+
+- Babashka
+- curl
+- cmp
+- date
