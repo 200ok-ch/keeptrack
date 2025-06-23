@@ -23,18 +23,18 @@ keeptrack [options] <URL>
 
 *** Options
 
-  =-d, --debug= - Print debug messages
-  =-h, --handler=COMMAND= - Command to execute when new version is created
-  =-p, --prefix=PREFIX= - Prefix for filenames (default: "prefix")
-  =-s, --storage=PATH= - Storage directory (default: =~/.keeptrack=)
-  =-t, --tempdir=PATH= - Temporary files directory (default: =/tmp/keeptrack=)
+- =-d, --debug= - Print debug messages
+- =-h, --handler=COMMAND= - Command to execute when new version is created
+- =-p, --prefix=PREFIX= - Prefix for filenames (default: "prefix")
+- =-s, --storage=PATH= - Storage directory (default: =~/.keeptrack=)
+- =-t, --tempdir=PATH= - Temporary files directory (default: =/tmp/keeptrack=)
 
 *** Handler Substitutions
 
 When using the =--handler= option, you can use these placeholders:
 
-  =%o= - Path to the old file
-  =%n= - Path to the new file
+- =%o= - Path to the old file
+- =%n= - Path to the new file
 
 ** Examples
 
