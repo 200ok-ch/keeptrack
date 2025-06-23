@@ -35,6 +35,8 @@ When using the =--handler= option, you can use these placeholders:
 
 - =%o= - Path to the old file
 - =%n= - Path to the new file
+- =%l= - Previous version
+- =%v= - New version
 
 ** Examples
 
