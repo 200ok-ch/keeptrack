@@ -54,7 +54,7 @@ keeptrack -s ~/my-tracking -p api-data https://api.example.com/data.json
 
 #+begin_src bash
 keeptrack --handler="echo 'New version: %n'" https://api.example.com/data.json
-+end_src
+#+end_src
 
 ** How It Works
 
