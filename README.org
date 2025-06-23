@@ -12,7 +12,7 @@ handlers.
 ** Installation
 
 #+begin_src bash
-bbin install bbin install io.github.200ok-ch/keeptrack
+bbin install io.github.200ok-ch/keeptrack
 #+end_src
 
 ** Usage
