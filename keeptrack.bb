@@ -100,7 +100,7 @@ Handler Substitutions:
                         (str/replace #"%v" (str "v" new-version)))]
             (when debug
               (println "Executing handler" cmd))
-            (print (:out (shell/sh "sh" "-c" cmd)))))))))
+            (print (:out (shell/sh "sh" "-c" cmd :dir *file*)))))))))
 
 (when (= *file* (System/getProperty "babashka.file"))
   (apply -main *command-line-args*))
