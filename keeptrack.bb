@@ -93,14 +93,15 @@ Handler Substitutions:
 
         ;; fire and forget
         (when handler
-          (let [cmd (-> handler
+          (let [path (System/getProperty "user.dir")
+                cmd (-> handler
                         (str/replace #"%o" latest-file)
                         (str/replace #"%n" new-file)
                         (str/replace #"%l" (str "v" latest-version))
                         (str/replace #"%v" (str "v" new-version)))]
             (when debug
               (println "Executing handler" cmd))
-            (print (:out (shell/sh "sh" "-c" cmd :dir *file*)))))))))
+            (print (:out (shell/sh "sh" "-c" cmd :dir path)))))))))
 
 (when (= *file* (System/getProperty "babashka.file"))
   (apply -main *command-line-args*))
