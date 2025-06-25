@@ -18,8 +18,7 @@ Usage:
 Options:
   -d, --debug              Print some debug messages
   -h, --handler=<handler>  Command to execute in case a new version was created
-  -p, --prefix=<prefix>    Prefix to be used for filenaming [default: prefix]
-  -s, --storage=<storage>  Path to keep the stored files [default: ~/.keeptrack]
+  -s, --storage=<storage>  Path to keep the stored files [default: .]
   -t, --tempdir=<tempdir>  Path for temporary files [default: /tmp/keeptrack]
 
 Handler Substitutions:
@@ -45,14 +44,14 @@ Handler Substitutions:
     (str/trim (:out result))))
 
 (defn main [& args]
-  (let [{:keys [url storage prefix tempdir debug handler] :as config}
+  (let [{:keys [url storage tempdir debug handler] :as config}
         (-> (smith/config usage)
             (update :storage fs/expand-home))
         date (create-timestamp)
-        latest-symlink (str storage "/" prefix "-latest.json")
+        latest-symlink (str storage "/latest.json")
         latest-file (when (fs/exists? latest-symlink)
                       (str storage "/" (fs/read-link latest-symlink)))
-        temp-file (str tempdir "/" prefix "-" (System/currentTimeMillis))]
+        temp-file (str tempdir "/" (System/currentTimeMillis))]
 
     (fs/create-dirs tempdir)
 
@@ -82,7 +81,7 @@ Handler Substitutions:
       (fs/create-dirs storage)
 
       ;; Create new file with incremented version
-      (let [new-file (str storage "/" prefix "-" date "-v" new-version ".json")]
+      (let [new-file (str storage "/" date "-v" new-version ".json")]
         (fs/move temp-file new-file)
 
         ;; Update the latest symlink
@@ -97,8 +96,8 @@ Handler Substitutions:
           (let [cmd (-> handler
                         (str/replace #"%o" latest-file)
                         (str/replace #"%n" new-file)
-                        (str/replace #"%l" latest-version)
-                        (str/replace #"%v" new-version))]
+                        (str/replace #"%l" (str "v" latest-version))
+                        (str/replace #"%v" (str "v" new-version)))]
             (when debug
               (println "Executing handler" cmd))
             (print (:out (shell/sh "sh" "-c" cmd)))))))))
