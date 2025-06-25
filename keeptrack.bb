@@ -43,7 +43,7 @@ Handler Substitutions:
   (let [result (shell/sh "date" "-u" "+%Y%m%dT%H%M%SZ")]
     (str/trim (:out result))))
 
-(defn main [& args]
+(defn -main [& args]
   (let [{:keys [url storage tempdir debug handler] :as config}
         (-> (smith/config usage)
             (update :storage fs/expand-home))
@@ -103,4 +103,4 @@ Handler Substitutions:
             (print (:out (shell/sh "sh" "-c" cmd)))))))))
 
 (when (= *file* (System/getProperty "babashka.file"))
-  (apply main *command-line-args*))
+  (apply -main *command-line-args*))
