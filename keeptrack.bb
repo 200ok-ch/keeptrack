@@ -27,7 +27,7 @@ Handler Substitutions:
 ")
 
 (defn get-version [filename]
-  (if-let [version-match (and filename (re-find #"-.*-v(\d+)\." filename))]
+  (if-let [version-match (and filename (re-find #".*-v(\d+)\." filename))]
     (Integer/parseInt (second version-match))
     0))
 
