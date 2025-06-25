@@ -96,7 +96,7 @@ Handler Substitutions:
         (when handler
           (let [cmd (-> handler
                         (str/replace #"%o" latest-file)
-                        (str/replace #"%n" new-file))
+                        (str/replace #"%n" new-file)
                         (str/replace #"%l" latest-version)
                         (str/replace #"%v" new-version))]
             (when debug
