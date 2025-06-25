@@ -25,7 +25,6 @@ keeptrack [options] <URL>
 
 - =-d, --debug= - Print debug messages
 - =-h, --handler=COMMAND= - Command to execute when new version is created
-- =-p, --prefix=PREFIX= - Prefix for filenames (default: "prefix")
 - =-s, --storage=PATH= - Storage directory (default: =~/.keeptrack=)
 - =-t, --tempdir=PATH= - Temporary files directory (default: =/tmp/keeptrack=)
 
@@ -46,10 +45,10 @@ When using the =--handler= option, you can use these placeholders:
 keeptrack https://api.example.com/data.json
 #+end_src
 
-*** With Custom Storage and Prefix
+*** With Custom Storage
 
 #+begin_src bash
-keeptrack -s ~/my-tracking -p api-data https://api.example.com/data.json
+keeptrack -s ~/my-tracking https://api.example.com/data.json
 #+end_src
 
 *** With Handler for Notifications
@@ -68,7 +67,7 @@ keeptrack --handler="echo 'New version: %n'" https://api.example.com/data.json
 
 ** File Naming
 
-Files are stored with the format: ={prefix}-{timestamp}-v{version}.json=
+Files are stored with the format: ={timestamp}-v{version}.json=
 
 Example: =api-data-20250623T143052Z-v5.json=
 
