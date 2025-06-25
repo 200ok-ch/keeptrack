@@ -101,7 +101,9 @@ Handler Substitutions:
                         (str/replace #"%v" (str "v" new-version)))]
             (when debug
               (println "Executing handler" cmd))
-            (print (:out (shell/sh "sh" "-c" cmd :dir path)))))))))
+            (print (:out (shell/sh "sh" "-c" cmd :dir path)))))))
+
+    (fs/set-last-modified-time ".keeptrack" (java.time.Instant/now))))
 
 (when (= *file* (System/getProperty "babashka.file"))
   (apply -main *command-line-args*))
